@@ -1,3 +1,10 @@
 Reddit account:
 username: ENGTECH4FD3
 password: Unihomies3
+secret: Vv6CoQu8-jOmktbxqMgCsAoL_aNESQ
+ID: 2YNF6cMmsZ7NByyk5fhARg
+
+
+AWS Info:
+user:ENGTECH4FD3
+pass:Unihomies_3
