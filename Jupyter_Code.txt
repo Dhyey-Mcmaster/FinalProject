@@ -1,0 +1,109 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import style
+import pandas as pd
+import datetime as dt
+import pandas_datareader.data as web
+import fix_yahoo_finance as fyf 
+from pandas_datareader import data as pdr
+def switch():
+    print("*****STOCK MARKET PREDICTION*****")
+    print("\n\n Press 1 for Predicting OPENING Price \n\n Press 2 for Predicting CLOSING Price \n\n Press 3 to Exit\n\n")
+    option = int(input("\nEnter Your Option: "))
+    def open(): 
+        open_price()
+    def close():
+        close_price()
+    def default():
+        return ;
+    dictionary = {
+        1: open,
+        2: close,
+        3: default
+    }
+    dictionary.get(option)()
+    def open_price():
+    
+    fyf.pdr_override()
+    name=input('\n\nEnter the Company Name: ')
+    data = fyf.download(name, start='2000-01-01') 
+    print(data.tail(10))
+    data.to_csv('Atest.csv')
+    
+    dataset = pd.read_csv('Atest.csv')
+    X = dataset.iloc[:, 4:5].values
+    y = dataset.iloc[:, 1].values
+    
+    
+    from sklearn.linear_model import LinearRegression
+    from sklearn.preprocessing import PolynomialFeatures
+    
+    poly_reg = PolynomialFeatures(degree = 6)
+    X_poly = poly_reg.fit_transform(X)
+    poly_reg.fit(X_poly, y)
+    lin_reg_2 = LinearRegression()
+    lin_reg_2.fit(X_poly, y)
+    plt.scatter(X, y, color = 'red')
+    plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color = 'blue')
+    plt.title('Open Price Prediction (Polynomial Regression)')
+    plt.xlabel('Close Price')
+    plt.ylabel('Open Price')
+    plt.show()
+    
+    X_grid = np.arange(min(X), max(X), 0.1)
+    X_grid = X_grid.reshape((len(X_grid), 1))
+    plt.scatter(X, y, color = 'red')
+    plt.plot(X_grid, lin_reg_2.predict(poly_reg.fit_transform(X_grid)), color = 'blue')
+    plt.title('Open Price Prediction (Polynomial Regression)')
+    plt.xlabel('Close Price')
+    plt.ylabel('Open Price')
+    plt.show()
+    print('\n\n\n')
+    #a=float(input("\n\nEnter the Value: "))
+    a= dataset[['Close']].tail(1)
+    b=lin_reg_2.predict(poly_reg.fit_transform(a))
+    print('\n\nNext Open Price Predicted is:',b)
+    print('\n\n\n')
+    switch()
+def close_price():
+    
+    fyf.pdr_override()
+    name=input('\n\nEnter the Company Name: ')
+    data = fyf.download(name, start='2000-01-01') 
+    print(data.tail(10))
+    data.to_csv('Atest.csv')
+    
+    dataset = pd.read_csv('Atest.csv')
+    X = dataset.iloc[:,1:2].values
+    y = dataset.iloc[:, 4].values
+   
+    
+    from sklearn.linear_model import LinearRegression
+    from sklearn.preprocessing import PolynomialFeatures
+    
+    poly_reg = PolynomialFeatures(degree = 6)
+    X_poly = poly_reg.fit_transform(X)
+    poly_reg.fit(X_poly, y)
+    lin_reg_2 = LinearRegression()
+    lin_reg_2.fit(X_poly, y)
+    plt.scatter(X, y, color = 'red')
+    plt.plot(X, lin_reg_2.predict(poly_reg.fit_transform(X)), color = 'blue')
+    plt.title('Close Price Prediction (Polynomial Regression)')
+    plt.xlabel('Open Price')
+    plt.ylabel('Close Price')
+    plt.show()
+    
+    X_grid = np.arange(min(X), max(X), 0.1)
+    X_grid = X_grid.reshape((len(X_grid), 1))
+    plt.scatter(X, y, color = 'red')
+    plt.plot(X_grid, lin_reg_2.predict(poly_reg.fit_transform(X_grid)), color = 'blue')
+    plt.title('Close Price Prediction (Polynomial Regression)')
+    plt.xlabel('Open Price')
+    plt.ylabel('Close Price')
+    plt.show()
+    #a=float(input("\n\nEnter the Value: "))
+    a= dataset[['Open']].tail(1)
+    b=lin_reg_2.predict(poly_reg.fit_transform(a))
+    print('\n\nNext Close Price Predicted is:',b)
+    switch()
+    
