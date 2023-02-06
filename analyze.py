@@ -4,7 +4,7 @@ Created on Sun Feb  5 20:07:38 2023
 
 @author: Nic
 """
-tsla = ['tesla', 'tsla', '$tsla','$tesla']
+tsla = ['tesla', 'tsla', '$tsla','$tesla', 'TESLA,' '$TSLA', 'TSLA']
 tslaLen = len(tsla)
 
 with open('RedditPosts.txt', 'r', encoding='UTF-8') as posts:
