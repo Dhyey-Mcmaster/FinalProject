@@ -1,5 +1,8 @@
-
 import praw
+headlines=[]
+posts = []
+
+postsFile = open("RedditPosts.txt", "a", encoding='utf-8')
 
 
 #scrapper info
@@ -11,11 +14,10 @@ reddit = praw.Reddit(
     )
 
 for submission in reddit.subreddit('wallstreetbets').hot(limit=None): #checking each submission. can be hot/new/top
-    headlines=[]
-    if (submission.id not in headlines): #avoiding duplicates
-        print(submission.title)
-        print(submission.score) #amount of upvotes vs downvotes
-        print(submission.id)
-        headlines.append(submission.id) # ID will be unique 
-        
-                
+    if (submission.id not in headlines): #avoiding duplicates 
+        postsFile.write(submission.title)     
+        postsFile.write('\n')
+        postsFile.write(str(submission.score))
+        postsFile.write('\n')        
+        headlines.append(submission.id) # ID will be unique
+postsFile.close()
