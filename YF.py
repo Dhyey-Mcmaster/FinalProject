@@ -4,7 +4,7 @@ import yfinance as yf
 
 TSLA = yf.Ticker('TSLA')
 
-TSLAInfo = TSLA.info
+TSLAInfo = TSLA.fast_info
 
 for key,value in TSLAInfo.items():
     print(key, ':', value)
@@ -22,7 +22,7 @@ for ticker in tickers:
 
 SPY = yf.Ticker('SPY')
 
-SPYInfo = SPY.info
+SPYInfo = SPY.fast_info
 
 for key,value in SPYInfo.items():
     print(key, ':', value)
@@ -41,7 +41,7 @@ for ticker in tickers:
     
 Meta = yf.Ticker('Meta')
 
-MetaInfo = Meta.info
+MetaInfo = Meta.fast_info
 
 for key,value in MetaInfo.items():
     print(key, ':', value)
@@ -59,7 +59,7 @@ for ticker in tickers:
 
 AAPL = yf.Ticker('AAPL')
 
-AAPLInfo = AAPL.info
+AAPLInfo = AAPL.fast_info
 
 for key,value in AAPLInfo.items():
     print(key, ':', value)
@@ -76,7 +76,7 @@ for ticker in tickers:
     
 GOOGL = yf.Ticker('GOOGL')
 
-GOOGLInfo = GOOGL.info
+GOOGLInfo = GOOGL.fast_info
 
 for key,value in SPYInfo.items():
     print(key, ':', value)
